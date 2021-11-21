@@ -5,8 +5,8 @@
         <nav class="navbar navbar-light bg-light static-top">
             <a class="navbar-brand" href="/">BlindSearch</a>
             <div class="container">
-                <a class="btn btn-primary" href="http://blindsearch.test/login">Iniciar Sesión</a>
-                <a class="btn btn-primary" href="http://blindsearch.test/register">Registrarse</a>
+                <a class="btn btn-primary" href="http://blindsearch.test/login">Log In</a>
+                <a class="btn btn-primary" href="http://blindsearch.test/register">Register</a>
             </div>
         </nav>
         <!-- Masthead-->
