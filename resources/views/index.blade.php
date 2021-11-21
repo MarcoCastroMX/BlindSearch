@@ -3,9 +3,10 @@
 @section("body")
         <!-- Navigation-->
         <nav class="navbar navbar-light bg-light static-top">
+            <a class="navbar-brand" href="/">BlindSearch</a>
             <div class="container">
-                <a class="navbar-brand" href="#!">Start Bootstrap</a>
-                <a class="btn btn-primary" href="#signup">Sign Up</a>
+                <a class="btn btn-primary" href="http://blindsearch.test/login">Iniciar Sesión</a>
+                <a class="btn btn-primary" href="http://blindsearch.test/register">Registrarse</a>
             </div>
         </nav>
         <!-- Masthead-->
