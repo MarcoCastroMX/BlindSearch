@@ -30,4 +30,10 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'github' => [
+        'client_id' => "0ac1bcfe118bcc2d260a",
+        'client_secret' => "b9bc35cd575a9b23d096759ca7a3eb0074eff5ab",
+        'redirect' =>"http://blindsearch.test/auth/github/callback",
+    ],
+
 ];
