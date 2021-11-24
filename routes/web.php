@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\GitHubController;
 use App\Http\Controllers\RedController;
+use App\Http\Controllers\RelationController;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +22,9 @@ Route::get('/', function () {
 });
 
 Route::resource('Red', RedController::class);
+
+Route::get('/relation', [RelationController::class,'showRelation'])->name('relation');
+Route::post('/relation/store', [RelationController::class,'saveRelation'])->name('store_relation');
 
 Route::get('auth/github', [GitHubController::class, 'gitRedirect']);
 Route::get('auth/github/callback', [GitHubController::class, 'gitCallback']);

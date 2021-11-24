@@ -15,7 +15,8 @@ class RedController extends Controller
      */
     public function index()
     {
-        return view("Red.redIndex");
+        $redes = Red::all();
+        return view("Red.redIndex",compact("redes"));
     }
 
     /**
@@ -38,7 +39,12 @@ class RedController extends Controller
     {
         $request->validate([
             "SSID" => "required|string",
-            "Contraseña" => "required|password",
+            "Contraseña" => "required|string",
+        ]);
+
+        $request->merge([
+            "Usuario_Creador" => Auth::user()->name,
+            "Email_Creador" => Auth::user()->email,
         ]);
 
         $red = Red::create($request->all());
@@ -53,7 +59,10 @@ class RedController extends Controller
      */
     public function show($id)
     {
-        //
+        $red = Red::find($id);
+
+        return view('Red.redShow')
+            ->with('red',$red);
     }
 
     /**
@@ -64,7 +73,9 @@ class RedController extends Controller
      */
     public function edit($id)
     {
-        //
+        $red = Red::find($id);
+        return view('Red.redForm')
+            ->with('red',$red);
     }
 
     /**
@@ -76,7 +87,14 @@ class RedController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            "SSID" => "required|string",
+            "Contraseña" => "required|string",
+        ]);
+        $red = Red::find($id);
+
+        Red::where("id",$red->id)->update($request->except("_token","_method","Usuario_Creador","Email_Creador"));
+        return redirect()->route("Red.show",$red);
     }
 
     /**
@@ -87,6 +105,8 @@ class RedController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $red = Red::find($id);
+        $red->delete();
+        return redirect()->route("Red.index");
     }
 }

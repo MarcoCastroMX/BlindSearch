@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRedsTable extends Migration
+class CreateRedUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateRedsTable extends Migration
      */
     public function up()
     {
-        Schema::create('reds', function (Blueprint $table) {
+        Schema::create('red_user', function (Blueprint $table) {
             $table->id();
-            $table->string("SSID");
-            $table->string("Contraseña", 60);
-            $table->string("Usuario_Creador");
-            $table->string("Email_Creador");
-            $table->timestamps();
+            $table->bigInteger("red_id");
+            $table->bigInteger("user_id");
         });
     }
 
@@ -30,6 +27,6 @@ class CreateRedsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reds');
+        Schema::dropIfExists('red_user');
     }
 }

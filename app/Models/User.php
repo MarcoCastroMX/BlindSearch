@@ -58,4 +58,8 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function reds(){
+        return $this->belongsToMany(Red::class);
+    }
 }

@@ -11,5 +11,11 @@ class Red extends Model
     protected $fillable =[
         "SSID",
         "Contraseña",
+        "Usuario_Creador",
+        "Email_Creador",
     ];
+
+    public function users(){
+        return $this->belongsToMany(User::class);
+    }
 }
