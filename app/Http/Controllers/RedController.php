@@ -15,7 +15,7 @@ class RedController extends Controller
      */
     public function index()
     {
-        $redes = Red::all();
+        $redes = Red::with('users')->get();
         return view("Red.redIndex",compact("redes"));
     }
 
