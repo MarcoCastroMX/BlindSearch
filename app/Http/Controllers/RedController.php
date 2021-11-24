@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Barryvdh\DomPDF\Facade as PDF;
 use App\Models\Red;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -108,5 +109,12 @@ class RedController extends Controller
         $red = Red::find($id);
         $red->delete();
         return redirect()->route("Red.index");
+    }
+
+    public function download(){
+        $redes = Red::with('users')->get();
+        $pdf = PDF::loadView("Red.redIndex",compact("redes"))->setOptions(['defaultFont' => 'sans-serif']);
+
+        return  $pdf->download("Network.pdf");
     }
 }

@@ -22,6 +22,7 @@ Route::get('/', function () {
 });
 
 Route::resource('Red', RedController::class);
+Route::get('/download',[RedController::class,'download'])->name('download');
 
 Route::get('/relation', [RelationController::class,'showRelation'])->name('relation');
 Route::post('/relation/store', [RelationController::class,'saveRelation'])->name('store_relation');

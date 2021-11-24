@@ -30,6 +30,9 @@
                     </table>
                 </div>
                 <a class="btn btn-primary" href="{{ route("relation") }}">Your Networks</a>
+                <br>
+                <br>
+                <a href="{{ route("download") }}">Download PDF</a>
             </div>
         </div>
     </div>
