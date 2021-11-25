@@ -107,6 +107,8 @@ class RedController extends Controller
     public function destroy($id)
     {
         $red = Red::find($id);
+        $user = Auth::user();
+        $user->reds()->detach($red->id);
         $red->delete();
         return redirect()->route("Red.index");
     }

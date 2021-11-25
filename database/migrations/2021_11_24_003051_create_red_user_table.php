@@ -15,8 +15,8 @@ class CreateRedUserTable extends Migration
     {
         Schema::create('red_user', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger("red_id");
-            $table->bigInteger("user_id");
+            $table->foreignId("red_id")->references('id')->on('reds')->onDelete('cascade');
+            $table->foreignId("user_id")->constrained();
         });
     }
 
