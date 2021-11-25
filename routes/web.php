@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\GitHubController;
 use App\Http\Controllers\RedController;
 use App\Http\Controllers\RelationController;
@@ -24,12 +25,14 @@ Route::get('/', function () {
 Route::resource('Red', RedController::class);
 Route::get('/download',[RedController::class,'download'])->name('download');
 
-Route::get('/relation', [RelationController::class,'showRelation'])->name('relation');
-Route::post('/relation/store', [RelationController::class,'saveRelation'])->name('store_relation');
+Route::resource('Device', DeviceController::class);
+
+Route::get('/relation', [RelationController::class,'showRelation'])->name('Red_relation');
+Route::post('/relation/store', [RelationController::class,'saveRelation'])->name('Red_store_relation');
 
 Route::get('auth/github', [GitHubController::class, 'gitRedirect']);
 Route::get('auth/github/callback', [GitHubController::class, 'gitCallback']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
+    return redirect()->route("Red.index");
 })->name('dashboard');

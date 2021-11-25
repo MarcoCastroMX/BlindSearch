@@ -9,7 +9,7 @@
             <a class="btn btn-danger" href={{ route("Red.index") }}>Return</a>
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div style="width:500px; height:500px; overflow:auto;">
-                    <form action="{{ route("store_relation") }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route("Red_store_relation") }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <label for="red_id">Network</label>
                         <br>

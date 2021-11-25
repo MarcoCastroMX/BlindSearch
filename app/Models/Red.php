@@ -10,7 +10,7 @@ class Red extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    
+
     protected $fillable =[
         "SSID",
         "Contraseña",
