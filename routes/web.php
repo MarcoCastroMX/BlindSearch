@@ -22,13 +22,13 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::resource('Red', RedController::class);
-Route::get('/download',[RedController::class,'download'])->name('download');
+Route::resource('Red', RedController::class)->middleware('checkuser');
+Route::get('/download',[RedController::class,'download'])->name('download')->middleware('checkuser');
 
-Route::resource('Device', DeviceController::class);
+Route::resource('Device', DeviceController::class)->middleware('checkuser');
 
-Route::get('/relation', [RelationController::class,'showRelation'])->name('Red_relation');
-Route::post('/relation/store', [RelationController::class,'saveRelation'])->name('Red_store_relation');
+Route::get('/relation', [RelationController::class,'showRelation'])->name('Red_relation')->middleware('checkuser');
+Route::post('/relation/store', [RelationController::class,'saveRelation'])->name('Red_store_relation')->middleware('checkuser');
 
 Route::get('auth/github', [GitHubController::class, 'gitRedirect']);
 Route::get('auth/github/callback', [GitHubController::class, 'gitCallback']);

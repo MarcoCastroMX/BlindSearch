@@ -18,6 +18,10 @@ class Red extends Model
         "Email_Creador",
     ];
 
+    public function getSSIDAttribute($value){
+        return strtoupper($value);
+    }
+
     public function users(){
         return $this->belongsToMany(User::class);
     }

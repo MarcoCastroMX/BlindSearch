@@ -75,6 +75,7 @@ class RedController extends Controller
     public function edit($id)
     {
         $red = Red::find($id);
+        $this->authorize("autor",$red);
         return view('Red.redForm')
             ->with('red',$red);
     }
@@ -93,7 +94,7 @@ class RedController extends Controller
             "Contraseña" => "required|string",
         ]);
         $red = Red::find($id);
-
+        $this->authorize("autor",$red);
         Red::where("id",$red->id)->update($request->except("_token","_method","Usuario_Creador","Email_Creador"));
         return redirect()->route("Red.show",$red);
     }
@@ -108,6 +109,7 @@ class RedController extends Controller
     {
         $red = Red::find($id);
         $user = Auth::user();
+        $this->authorize("autor",$red);
         $user->reds()->detach($red->id);
         $red->delete();
         return redirect()->route("Red.index");

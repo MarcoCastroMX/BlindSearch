@@ -59,6 +59,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'profile_photo_url',
     ];
 
+    public function setEmailAttribute($value){
+        $this->attributes['email'] = strtolower($value);
+    }
+
     public function reds(){
         return $this->belongsToMany(Red::class);
     }
