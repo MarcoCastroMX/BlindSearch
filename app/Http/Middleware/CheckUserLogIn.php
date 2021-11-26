@@ -20,7 +20,7 @@ class CheckUserLogIn
     public function handle(Request $request, Closure $next)
     {
         $user = Auth::user();
-        if (!isNull($user)){
+        if ($user == NULL){
             return redirect("/");
         }
         return $next($request);

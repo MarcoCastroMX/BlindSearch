@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RedCreateRequest;
 use Barryvdh\DomPDF\Facade as PDF;
 use App\Models\Red;
 use Illuminate\Http\Request;
@@ -36,20 +37,16 @@ class RedController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RedCreateRequest $request)
     {
-        $request->validate([
-            "SSID" => "required|string",
-            "Contraseña" => "required|string",
-        ]);
-
         $request->merge([
             "Usuario_Creador" => Auth::user()->name,
             "Email_Creador" => Auth::user()->email,
         ]);
 
         $red = Red::create($request->all());
-        return redirect()->route("Red.index");
+        return redirect()->route('Red.index')
+        ->with('Red_add','Networkd added correctly');
     }
 
     /**
@@ -87,16 +84,14 @@ class RedController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(RedCreateRequest $request, $id)
     {
-        $request->validate([
-            "SSID" => "required|string",
-            "Contraseña" => "required|string",
-        ]);
+
         $red = Red::find($id);
         $this->authorize("autor",$red);
         Red::where("id",$red->id)->update($request->except("_token","_method","Usuario_Creador","Email_Creador"));
-        return redirect()->route("Red.show",$red);
+        return redirect()->route('Red.show',$red)
+        ->with(['Red_message' => "Networkd edited correctly","red"=>$red]);
     }
 
     /**
@@ -112,7 +107,8 @@ class RedController extends Controller
         $this->authorize("autor",$red);
         $user->reds()->detach($red->id);
         $red->delete();
-        return redirect()->route("Red.index");
+        return redirect()->route('Red.index')
+        ->with('Red_delete','Networkd deleted correctly');
     }
 
     public function download(){

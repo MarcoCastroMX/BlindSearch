@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DeviceCreateRequest;
 use App\Models\Device;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,14 +36,8 @@ class DeviceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DeviceCreateRequest $request)
     {
-        $request->validate([
-            "Nombre" => "required|string",
-            "Ubicacion" => "required|string",
-            "Bateria" => "required|integer|between:1,100",
-        ]);
-
         if($request->hasFile("Foto")){
             $nombre_original = $request->Foto->getClientOriginalName();
             $ruta = $request->Foto->store("public/imagenes");
@@ -64,7 +59,8 @@ class DeviceController extends Controller
         }
 
         $device = Device::create($request->all());
-        return redirect()->route("Device.index");
+        return redirect()->route('Device.index')
+        ->with('Device_add','Device added correctly');
     }
 
     /**
@@ -97,29 +93,33 @@ class DeviceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(DeviceCreateRequest $request, $id)
     {
-        $request->validate([
-            "Nombre" => "required|string",
-            "Ubicacion" => "required|string",
-            "Bateria" => "required|integer|between:1,100",
-        ]);
+        if($request->hasFile("Foto")){
+            $nombre_original = $request->Foto->getClientOriginalName();
+            $ruta = $request->Foto->store("public/imagenes");
+            $mime = $request->Foto->getClientMimeType();
 
-
-        $nombre_original = $request->Foto->getClientOriginalName();
-        $ruta = $request->Foto->store("public/imagenes");
-        $mime = $request->Foto->getClientMimeType();
-
-        $request->merge([
-            "Foto" => $nombre_original,
-            "Foto_Ruta" => $ruta,
-            "MIME" => $mime,
-        ]);
+            $request->merge([
+                "Foto" => $nombre_original,
+                "Foto_Ruta" => $ruta,
+                "MIME" => $mime,
+                "user_id" => Auth::id(),
+            ]);
+        } else {
+            $request->merge([
+                "user_id" => Auth::id(),
+                "Foto" => "",
+                "Foto_Ruta" => "",
+                "MIME" => "",
+            ]);
+        }
 
         $device = Device::find($id);
 
         Device::where("id",$device->id)->update($request->except("_token","_method","user_id"));
-        return redirect()->route("Device.show",$device);
+        return redirect()->route('Device.show',$device)
+        ->with(['Device_message' => "Device edited correctly","device"=>$device]);
     }
 
     /**
@@ -131,6 +131,7 @@ class DeviceController extends Controller
     {
         $device = Device::find($id);
         $device->delete();
-        return redirect()->route("Device.index");
+        return redirect()->route('Device.index')
+        ->with('Device_delete','Device deleted correctly');
     }
 }

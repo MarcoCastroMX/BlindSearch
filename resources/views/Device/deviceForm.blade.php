@@ -17,12 +17,21 @@
                     @csrf
                     <label for="Nombre">Name:</label>
                     <input type="text" name="Nombre" required value="{{ $device->Nombre ?? "" }}">
+                    @error('Nombre')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                     <br>
                     <label for="Ubicacion">Location:</label>
                     <input type="text" name="Ubicacion" required value="{{ $device->Ubicacion ?? "" }}">
+                    @error('Ubicacion')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                     <br>
                     <label for="Bateria">Battery:</label>
-                    <input type="number" name="Bateria" required min="10" max="100" value="{{ $device->Bateria ?? "0" }}">
+                    <input type="number" name="Bateria" required min="0" max="100" value="{{ $device->Bateria ?? "0" }}">
+                    @error('Bateria')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                     <br>
                     @if (isset($device))
                         @if ($device->Foto != "" )
@@ -38,15 +47,6 @@
                     <input type="submit" value="Send">
                 </form>
             </div>
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
         </div>
     </div>
 </x-app-layout>

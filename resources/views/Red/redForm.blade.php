@@ -17,22 +17,18 @@
                     @csrf
                     <label for="SSID">Name of the Network:</label>
                     <input type="text" name="SSID" required value="{{ $red->SSID ?? "" }}">
+                    @error('SSID')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                     <br>
                     <label for="Contraseña">Password</label>
-                    <input type="password" name="Contraseña" value="{{ $red->Contraseña ?? "" }}">
-
+                    <input type="password" name="Contraseña" required value="{{ $red->Contraseña ?? "" }}">
+                    @error('Contraseña')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                     <input type="submit" value="Send">
                 </form>
             </div>
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
         </div>
     </div>
 </x-app-layout>
