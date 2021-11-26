@@ -7,13 +7,15 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <a class="btn btn-danger" href={{ route("Red.index") }}>Return</a>
+            <br>
+            <br>
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <div style="width:500px; height:500px; overflow:auto;">
-                    <form action="{{ route("Red_store_relation") }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <label for="red_id">Network</label>
+                <form action="{{ route("Red_store_relation") }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group">
+                        <label for="red_id">Choose your Network</label>
                         <br>
-                        <select name="red_id[]" id="red_id" multiple>
+                        <select name="red_id[]" id="red_id" class="form-control" multiple>
                             @foreach ($redes as $red )
                             @php
                                 $Encontrado = False;
@@ -32,10 +34,10 @@
                                 @endif
                             @endforeach
                         </select>
-                        <br>
-                        <input type="submit" value="Send">
-                    </form>
-                </div>
+                    </div>
+                    <br>
+                    <input type="submit" class="btn btn-primary" value="Send">
+                </form>
             </div>
             @if ($errors->any())
                 <div class="alert alert-danger">

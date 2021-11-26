@@ -7,28 +7,32 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <a class="btn btn-danger" href={{ route("Device.index") }}>Return</a>
+            <br>
+            <br>
             @if ($device->Foto != "" )
             @php
                 $nombre_archivo = explode("/",$device->Foto_Ruta)
             @endphp
-            <img src="{{ asset("storage/imagenes/".$nombre_archivo[2])}}" width="300px" alt="Foto"/>
+            <img src="{{ asset("storage/imagenes/".$nombre_archivo[2])}}" class="img-fluid w-25 mx-auto d-block" alt="Foto"/>
             @endif
-
+            <br>
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <ul>
-                    <li>ID: {{ $device ->id }}</li>
-                    <li>USER ID: {{ $device ->user_id }}</li>
-                    <li>NAME: {{ $device ->Nombre }}</li>
-                    <li>LOCATION: {{ $device ->Ubicacion }}</li>
-                    <li>BATTERY: {{ $device ->Bateria }}</li>
+                <ul class="list-group">
+                    <li class="list-group-item">ID: {{ $device ->id }}</li>
+                    <li class="list-group-item">USER ID: {{ $device ->user_id }}</li>
+                    <li class="list-group-item">NAME: {{ $device ->Nombre }}</li>
+                    <li class="list-group-item">LOCATION: {{ $device ->Ubicacion }}</li>
+                    <li class="list-group-item">BATTERY: {{ $device ->Bateria }}</li>
                 </ul>
             </div>
+            <br>
             <form action="{{ route("Device.destroy", $device) }}" method="POST">
                 @csrf
                 @method("DELETE")
-                <input type="submit" value="Delete">
+                <input type="submit" class="btn btn-warning" value="Delete">
             </form>
-            <a href="{{ route("Device.edit",$device->id) }}">Edit</a>
+            <br>
+            <a href="{{ route("Device.edit",$device->id) }}" class="btn btn-info">Edit</a>
         </div>
     </div>
 </x-app-layout>
